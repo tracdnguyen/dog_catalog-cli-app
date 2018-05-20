@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+DogCatalog::CLI.new.call
