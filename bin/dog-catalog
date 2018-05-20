@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
+require './lib/dog_catalog'
+
 DogCatalog::CLI.new.call
