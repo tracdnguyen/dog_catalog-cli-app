@@ -13,8 +13,10 @@ Building the CLI Gem
 
 user types in dog_catalog
 
-Greets and shows a list of dog supply categories
+Greets user and shows a list of dog supply categories
 
 1. Leashes
 2. Collars
 3. Muzzles
+
+Which category would you like to view products for?
