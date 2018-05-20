@@ -8,3 +8,13 @@ Building the CLI Gem
 6. Make things real
 7. Discover objects
 8. Let's do it
+
+- Command line interface for viewing various products listed on leerburg
+
+user types in dog_catalog
+
+Greets and shows a list of dog supply categories
+
+1. Leashes
+2. Collars
+3. Muzzles
