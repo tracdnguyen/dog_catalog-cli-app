@@ -6,6 +6,10 @@ class DogCatalog::CLI
   end
 
   def list_categories
-
+    puts <<-DOC.gsub /^\s*/, ''
+    1. Leashes
+    2. Collars
+    3. Muzzles
+    DOC
   end
 end
