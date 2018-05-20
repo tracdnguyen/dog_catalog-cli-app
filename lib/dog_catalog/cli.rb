@@ -3,6 +3,7 @@ class DogCatalog::CLI
   def call
     list_categories
     menu
+    goodbye
   end
 
   def list_categories
@@ -15,7 +16,26 @@ class DogCatalog::CLI
   end
 
   def menu
-    puts "Enter the number of the category you'd like to view:"
-    input = gets.strip
+    input = nil
+    while input != "exit"
+      puts "Enter the number for the category you'd like to view or type list to view the categories again:"
+      input = gets.strip.downcase
+      case input
+      when "1"
+        puts "Here is a list of all leashes with their price."
+      when "2"
+        puts "Here is a list of all collars with their price."
+      when "3"
+        puts "Here is a list of all muzzles with their price."
+      when "list"
+        list_categories
+      else
+        puts "We aren't sure of what you want, type list or exit."
+      end
+    end
+  end
+
+  def goodbye
+    puts "Thanks for reading the catalog, visit again soon!"
   end
 end
