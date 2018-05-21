@@ -1,14 +1,18 @@
 class DogCatalog::Supplies
+  attr_accessor :name, :category, :price, :url, :features
 
-  def self.type
-    #I should return instances of categories
-    puts <<-DOC.gsub /^\s*/, ''
-    1. Leashes
-    2. Collars
-    3. Muzzles
-    DOC
-    supply_1 = self.new
-    supply_1.name = "Leashes"
+  @@all = []
+
+  def initialize
+    @name = name
+    @category = category
+    @price = price
+    @url = url
+    @features = features
+
+    @@all << self
   end
+
+
 
 end
