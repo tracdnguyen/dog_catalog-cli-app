@@ -23,6 +23,8 @@ class DogCatalog::CLI
       case input
       when "1"
         puts "Here is a list of all leashes with their price."
+        test = DogCatalog::SupplyScraper.new
+        test
       when "2"
         puts "Here is a list of all collars with their price."
       when "3"
