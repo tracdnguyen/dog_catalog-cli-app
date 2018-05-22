@@ -10,7 +10,7 @@ class DogCatalog::Supplies
     @url = url
     @features = features
 
-    @@all << self
+    @@all << self.new
   end
 
   def self.all
