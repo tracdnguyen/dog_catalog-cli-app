@@ -1,11 +1,18 @@
 class DogCatalog::SupplyScraper
 
   def initialize
-    supplies = []
+    supplies = [[],[],[]]
     leash_category_1 = Nokogiri::HTML(open("http://leerburg.com/amishleashes.htm"))
     leash_category_1.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
-      puts supply.attributes["href"].value
+  #   puts supply.attributes["href"].value retreives links, but contain duplicates
+      supplies[0] << supply.text
+      supplies[0].delete("") #removes empty elements from array
+      supplies[1] << supply.attributes["href"].value
+      supplies[1].uniq!
+      supplies[2] << leash_category_1.css("div#container div#category-container div#category-list-container table td td div#category-product-title table tr div span")
+
     end
+    binding.pry
     leash_category_2 = Nokogiri::HTML(open("http://leerburg.com/allbiothaneleashes.php"))
     leash_category_2.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
       supplies << supply
