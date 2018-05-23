@@ -9,14 +9,22 @@ class DogCatalog::SupplyScraper
       supplies[0].delete("") #removes empty elements from array
       supplies[1] << supply.attributes["href"].value
       supplies[1].uniq!
-      supplies[2] << leash_category_1.css("div#container div#category-container div#category-list-container table td td div#category-product-title table tr div span")
-
     end
-    binding.pry
+    leash_category_1.css("div#container div#category-container div#category-list-container table tr td div.category-product-tile table tr td div.redtext span").each do |price|
+      supplies[2] << price.text
+    end
+
     leash_category_2 = Nokogiri::HTML(open("http://leerburg.com/allbiothaneleashes.php"))
     leash_category_2.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
-      supplies << supply
+      supplies[0] << supply.text
+      supplies[0].delete("") #removes empty elements from array
+      supplies[1] << supply.attributes["href"].value
+      supplies[1].uniq!
     end
+    leash_category_2.css("div#container div#category-container div#category-list-container table tr td div.category-product-tile table tr td div.redtext span").each do |price|
+      supplies[2] << price.text
+    end
+    binding.pry
     leash_category_3 = Nokogiri::HTML(open("http://leerburg.com/longlines.htm"))
     leash_category_3.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
       supplies << supply
