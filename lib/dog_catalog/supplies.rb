@@ -8,12 +8,13 @@ class DogCatalog::Supplies
     @category = category
     @price = price
     @url = url
-
-    @@all << self
   end
 
   def self.all
     @@all
   end
 
+  def self.save
+    @@all << self
+  end
 end

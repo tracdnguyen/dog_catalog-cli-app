@@ -1,10 +1,10 @@
 class DogCatalog::SupplyScraper
 
-  def self.scrape_leashes
+  def initialize
     supplies = []
     leash_category_1 = Nokogiri::HTML(open("http://leerburg.com/amishleashes.htm"))
     leash_category_1.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
-      supplies << supply
+      puts supply.attributes["href"].value
     end
     leash_category_2 = Nokogiri::HTML(open("http://leerburg.com/allbiothaneleashes.php"))
     leash_category_2.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
@@ -82,7 +82,7 @@ class DogCatalog::SupplyScraper
     end
   end
 
-    def initialize
+    def self.scrape_muzzles
       supplies = []
       muzzle_category_1 = Nokogiri::HTML(open("http://leerburg.com/plasticmuzzles.htm"))
       muzzle_category_1.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
