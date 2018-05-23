@@ -1,5 +1,5 @@
 class DogCatalog::Supplies
-  attr_accessor :name, :category, :price, :url, :features
+  attr_accessor :name, :category, :price, :url
 
   @@all = []
 
@@ -8,7 +8,6 @@ class DogCatalog::Supplies
     @category = category
     @price = price
     @url = url
-    @features = features
 
     @@all << self
   end

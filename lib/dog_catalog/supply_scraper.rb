@@ -95,9 +95,8 @@ class DogCatalog::SupplyScraper
       supplies << muzzle_category_3.css("div#container div#main2.gallery.clearfix div.product-snippet h2")
 
       muzzle_category_4 = Nokogiri::HTML(open("http://leerburg.com/1395.htm"))
-      muzzle_category_4.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
-        supplies << supply
-      end
+      supplies << muzzle_category_4.css("div#container div.box-size-fix.cf div#super-buybtn-sidebar h1.product-name")
+
       muzzle_category_5 = Nokogiri::HTML(open("http://leerburg.com/leathermuzzles.htm"))
       muzzle_category_5.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
         supplies << supply
@@ -106,6 +105,6 @@ class DogCatalog::SupplyScraper
       muzzle_category_6.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
         supplies << supply
       end
-      supplies
+      supplies.each {|element| puts element.text}
   end
 end
