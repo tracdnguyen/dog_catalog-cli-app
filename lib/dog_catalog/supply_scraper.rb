@@ -33,17 +33,25 @@ class DogCatalog::SupplyScraper
     def initialize
       supplies_2 = [[],[],[]]
       supplies_3 = [[],[],[]]
+      supplies_4 = [[],[],[]]
+
       collar_website = [
-          "http://leerburg.com/leathercollars.htm",
-        # "http://leerburg.com/flatcollars.htm",
-          "http://leerburg.com/prongcollars.htm",
-          "http://leerburg.com/keepercollars.php",
-          "http://leerburg.com/slipcollars.htm",
+          "http://leerburg.com/leathercollars.htm", ## can be combined with fur savers
+        #  "http://leerburg.com/flatcollars.htm",
+        #  "http://leerburg.com/prongcollars.htm",
           "http://leerburg.com/fur-saver-collars.htm",
-          "http://leerburg.com/specialcollars.htm",
-          "http://leerburg.com/electric.htm",
-          "http://leerburg.com/c-accessories.htm"
         ]
+
+      collar_website.each do |link|
+        leather_and_fur_collars = Nokogiri::HTML(open(link))
+        leather_and_fur_collars.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
+          supplies_1[0] << supply.text
+          supplies_1[0].delete("") #removes empty elements from array
+          supplies_1[1] << supply.attributes["href"].value
+          supplies_1[1].uniq!
+        end
+      end
+
 
           flat_collars = Nokogiri::HTML(open("http://leerburg.com/flatcollars.htm"))
           flat_collars.css("div#container div#category-container div#category-list-container table tr td div table tr td a.itemname").each do |supply|
@@ -75,5 +83,6 @@ class DogCatalog::SupplyScraper
             supplies_3[2].delete("$62.98 - $79.30") #removes price for a product with 2 prices
             supplies_3[2].uniq! #code will break if website has same price/price range for 2 separate products
           end
+          binding.pry
     end
 end
