@@ -30,7 +30,7 @@ class DogCatalog::SupplyScraper
     name_url_price
   end
 
-    def initialize
+    def self.scrape_collars
       flat_collar_name_url_price = [[],[],[]]
       prong_collar_name_url_price = [[],[],[]]
       name_url_price = [[],[],[]]
@@ -50,6 +50,8 @@ class DogCatalog::SupplyScraper
           name_url_price[2] << price.text
         end
       end
+      remove_every_other_link = name_url_price[1].each_slice(2).map(&:first)
+      name_url_price[1] = remove_every_other_link
 
       flat_collars = Nokogiri::HTML(open("http://leerburg.com/flatcollars.htm"))
       flat_collars.css("div#container div#category-container div#category-list-container table tr td div table tr td a.itemname").each do |supply|
@@ -57,7 +59,7 @@ class DogCatalog::SupplyScraper
         flat_collar_name_url_price[0] << supply.text
         flat_collar_name_url_price[0].delete("") #removes empty elements from array
         flat_collar_name_url_price[1] << supply.attributes["href"].value
-        flat_collar_name_url_price[1].uniq!
+        flat_collar_name_url_price[1].uniq! #removes duplicate links
       end
       flat_collars.css("div#container div#category-container div#category-list-container table tr td div.category-product-tile table tr td div.redtext span").each do |price|
         flat_collar_name_url_price[2] << price.text
@@ -82,11 +84,23 @@ class DogCatalog::SupplyScraper
         prong_collar_name_url_price[2].uniq! #code will break if website has same price or price range for 2 separate products
       end
 
-      test = name_url_price[1].each_slice(2).map(&:first)
-      name_url_price[1] = test
-      name_url_price[0].concat flat_collar_name_url_price[0]
-      name_url_price[1].concat flat_collar_name_url_price[1]
-      name_url_price[2].concat flat_collar_name_url_price[2]
+      count = 0 #lines 87-96 combines the scraped data for separate websites into one nested array to be returned by the method
+      count_2 = 0
+      until count == 3
+        name_url_price[count].concat flat_collar_name_url_price[count]
+        count += 1
+      end
+      until count_2 == 3
+        name_url_price[count_2].concat prong_collar_name_url_price[count_2]
+        count_2 += 1
+      end
+      name_url_price
+    #  name_url_price[0].concat flat_collar_name_url_price[0]
+    #  name_url_price[1].concat flat_collar_name_url_price[1]
+    #  name_url_price[2].concat flat_collar_name_url_price[2]
+    #  name_url_price[0].concat prong_collar_name_url_price[0]
+    #  name_url_price[1].concat prong_collar_name_url_price[1]
+    #  name_url_price[2].concat prong_collar_name_url_price[2]
 
       binding.pry
     end
