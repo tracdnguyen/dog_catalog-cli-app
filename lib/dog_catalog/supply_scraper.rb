@@ -7,10 +7,8 @@ class DogCatalog::SupplyScraper
       "http://leerburg.com/amishleashes.htm",
       "http://leerburg.com/allbiothaneleashes.php",
       "http://leerburg.com/longlines.htm",
-      "http://leerburg.com/shortleash.htm",
       "http://leerburg.com/lcone.htm",
       "http://leerburg.com/lightleash.htm",
-      "http://leerburg.com/specialleashes.htm",
       "http://leerburg.com/l-accessories.htm"
     ]
 
@@ -21,12 +19,13 @@ class DogCatalog::SupplyScraper
         name_url_price[0] << supply.text
         name_url_price[0].delete("") #removes empty elements from array
         name_url_price[1] << supply.attributes["href"].value
-        name_url_price[1].uniq!
+      end
+      all_leashes.css("div#container div#category-container div#category-list-container table tr td div.category-product-tile table tr td div.redtext span").each do |price|
+        name_url_price[2] << price.text
       end
     end
-    all_leashes.css("div#container div#category-container div#category-list-container table tr td div.category-product-tile table tr td div.redtext span").each do |price|
-      name_url_price[2] << price.text
-    end
+    remove_every_other_link = name_url_price[1].each_slice(2).map(&:first)
+    name_url_price[1] = remove_every_other_link
     name_url_price
   end
 
@@ -95,14 +94,6 @@ class DogCatalog::SupplyScraper
         count_2 += 1
       end
       name_url_price
-    #  name_url_price[0].concat flat_collar_name_url_price[0]
-    #  name_url_price[1].concat flat_collar_name_url_price[1]
-    #  name_url_price[2].concat flat_collar_name_url_price[2]
-    #  name_url_price[0].concat prong_collar_name_url_price[0]
-    #  name_url_price[1].concat prong_collar_name_url_price[1]
-    #  name_url_price[2].concat prong_collar_name_url_price[2]
-
-      binding.pry
     end
 
 
