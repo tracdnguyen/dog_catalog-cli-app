@@ -117,9 +117,9 @@ class DogCatalog::SupplyScraper
           name_url_price[2] << price.text
         end
       end
-      remove_every_other_link = name_url_price[1].each_slice(2).map(&:first)
+      remove_every_other_link = name_url_price[1].each_slice(2).map(&:first) #takes care of duplicate links
       name_url_price[1] = remove_every_other_link
-      name_url_price #method returns a nested array [[product_name],[url],[price]]
+
 
       jafco_muzzles = Nokogiri::HTML(open("http://leerburg.com/plasticmuzzles.htm"))
       jafco_muzzles.css("div#container div#category-container div#category-list-container table tr td div table tr td a.itemname").each do |supply|
@@ -134,6 +134,13 @@ class DogCatalog::SupplyScraper
         jafco_muzzles_name_url_price[2] << price.text
         jafco_muzzles_name_url_price[2].delete("$156.00 - $204.00") #removes price for a product with 2 prices
       end
+
+      count = 0
+      until count == 3
+        name_url_price[count].concat jafco_muzzles_name_url_price[count]
+        count += 1
+      end
+      name_url_price
       binding.pry
     end
 
