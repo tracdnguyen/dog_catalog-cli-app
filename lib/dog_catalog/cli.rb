@@ -25,7 +25,7 @@ class DogCatalog::CLI
         puts "Here is a list of all leashes with their price."
         test = DogCatalog::SupplyScraper.scrape_leashes
         display = DogCatalog::Supplies.new(test)
-        display.all
+        puts display.name
       when "2"
         puts "Here is a list of all collars with their price."
       when "3"
