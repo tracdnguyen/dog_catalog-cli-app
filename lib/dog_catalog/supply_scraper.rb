@@ -79,11 +79,11 @@ class DogCatalog::SupplyScraper
       prong_collars.css("div#container div#category-container div#category-list-container table tr td div.category-product-tile table tr td div.redtext span").each do |price|
         prong_collar_name_url_price[2] << price.text
         prong_collar_name_url_price[2].delete("$93.00 - $121.00") #removes price for a product with 2 prices
-        prong_collar_name_url_price[2].delete("$62.98 - $79.30") #removes price for a product with 2 prices
+        prong_collar_name_url_price[2].delete("$69.25 - $79.30") #removes price for a product with 2 prices
         prong_collar_name_url_price[2].uniq! #code will break if website has same price or price range for 2 separate products
       end
 
-      count = 0 #lines 87-96 combines the scraped data for separate websites into one nested array to be returned by the method
+      count = 0 #lines 86-96 combines the scraped data for separate websites into one nested array to be returned by the method
       count_2 = 0
       until count == 3
         name_url_price[count].concat flat_collar_name_url_price[count]
@@ -97,7 +97,7 @@ class DogCatalog::SupplyScraper
     end
 
 
-    def initialize
+    def self.scrape_muzzles
       jafco_muzzles_name_url_price = [[],[],[]]
       name_url_price = [[],[],[]]
       muzzle_websites =  [
@@ -118,7 +118,7 @@ class DogCatalog::SupplyScraper
         end
       end
       remove_every_other_link = name_url_price[1].each_slice(2).map(&:first) #takes care of duplicate links
-      name_url_price[1] = remove_every_other_link
+      name_url_price[1] = remove_every_other_link #set the array containing links to an array without duplicates
 
 
       jafco_muzzles = Nokogiri::HTML(open("http://leerburg.com/plasticmuzzles.htm"))
@@ -140,9 +140,6 @@ class DogCatalog::SupplyScraper
         name_url_price[count].concat jafco_muzzles_name_url_price[count]
         count += 1
       end
-      name_url_price
-      binding.pry
+      name_url_price #method returns a nested array [[product_name],[url],[price]]
     end
-
-
 end

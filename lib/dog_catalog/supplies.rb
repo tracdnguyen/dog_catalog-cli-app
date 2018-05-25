@@ -3,16 +3,15 @@ class DogCatalog::Supplies
 
   @@all = []
 
-  def initialize
-    @name = name
-    @category = category
-    @price = price
-    @url = url
+  def initialize(name_url_price)
+    self.send("name=", name_url_price[0][0])
 
-    @@all << self
+    puts self.name
   end
 
   def self.all
     @@all
   end
+
+
 end
