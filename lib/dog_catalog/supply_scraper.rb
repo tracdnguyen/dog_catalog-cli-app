@@ -97,8 +97,29 @@ class DogCatalog::SupplyScraper
     end
 
 
-    def self.scrape_muzzles
+    def initialize
+      name_url_price = [[],[],[]]
+      muzzle_websites =  [
+        "http://leerburg.com/leathermuzzles.htm",
+        "http://leerburg.com/syntheticmuzzles.htm"
+      ]
 
+      muzzle_websites.each do |link|
+        leather_and_synth_muzzles = Nokogiri::HTML(open(link))
+        leather_and_synth_muzzles.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
+      #   supply.attributes["href"].value retreives links, but contain duplicates
+          name_url_price[0] << supply.text
+          name_url_price[0].delete("") #removes empty elements from array
+          name_url_price[1] << supply.attributes["href"].value
+        end
+        leather_and_synth_muzzles.css("div#container div#category-container div#category-list-container table tr td div.category-product-tile table tr td div.redtext span").each do |price|
+          name_url_price[2] << price.text
+        end
+      end
+      remove_every_other_link = name_url_price[1].each_slice(2).map(&:first)
+      name_url_price[1] = remove_every_other_link
+      name_url_price #method returns a nested array [[product_name],[url],[price]]
+      binding.pry
     end
 
 
