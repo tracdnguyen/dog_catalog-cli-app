@@ -26,7 +26,7 @@ class DogCatalog::SupplyScraper
     end
     remove_every_other_link = name_url_price[1].each_slice(2).map(&:first)
     name_url_price[1] = remove_every_other_link
-    name_url_price
+    name_url_price #method returns a nested array [[product_name],[url],[price]]
   end
 
     def self.scrape_collars
@@ -93,7 +93,7 @@ class DogCatalog::SupplyScraper
         name_url_price[count_2].concat prong_collar_name_url_price[count_2]
         count_2 += 1
       end
-      name_url_price
+      name_url_price #method returns a nested array [[product_name],[url],[price]]
     end
 
 
