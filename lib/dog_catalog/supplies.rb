@@ -1,7 +1,7 @@
 class DogCatalog::Supplies
   attr_accessor :name, :price, :url
 
-
+  @@all = []
   def initialize(name_url_price)
 
   end
@@ -13,5 +13,7 @@ class DogCatalog::Supplies
     @@all
   end
 
-
+  def self.save
+    @@all << self
+  end
 end
