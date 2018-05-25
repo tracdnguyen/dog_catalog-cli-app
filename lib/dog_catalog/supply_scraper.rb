@@ -97,5 +97,9 @@ class DogCatalog::SupplyScraper
     end
 
 
+    def self.scrape_muzzles
+
+    end
+
 
 end
