@@ -1,8 +1,9 @@
 class DogCatalog::SupplyScraper
 
 
-  def initialize
+  def self.scrape_leashes
     name_url_price = [[],[],[]]
+    sorted_name_url_price = []
     leash_websites =  [
       "http://leerburg.com/amishleashes.htm",
       "http://leerburg.com/allbiothaneleashes.php",
@@ -24,9 +25,20 @@ class DogCatalog::SupplyScraper
         name_url_price[2] << price.text
       end
     end
-    remove_every_other_link = name_url_price[1].each_slice(2).map(&:first)
+    remove_every_other_link = name_url_price[1].each_slice(2).map(&:first) #removes every other url since scraped data comes with 2 same urls for each product
     name_url_price[1] = remove_every_other_link
-    name_url_price #method returns a nested array [[product_name],[url],[price]]
+    binding.pry
+    count = 0
+    until count == name_url_price[0].length
+      new_array = []
+      new_array[0] = name_url_price[0][count]
+      new_array[1] = name_url_price[1][count]
+      new_array[2] = name_url_price[2][count]
+      sorted_name_url_price << new_array
+      count += 1
+    end
+    sorted_name_url_price
+    binding.pry
   end
 
     def self.scrape_collars
