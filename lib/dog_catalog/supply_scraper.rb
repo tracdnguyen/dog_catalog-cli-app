@@ -1,7 +1,7 @@
 class DogCatalog::SupplyScraper
 
 
-  def self.scrape_leashes
+  def initialize
     name_url_price = [[],[],[]]
     leash_websites =  [
       "http://leerburg.com/amishleashes.htm",
