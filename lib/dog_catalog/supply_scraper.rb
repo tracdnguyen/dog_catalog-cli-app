@@ -37,8 +37,8 @@ class DogCatalog::SupplyScraper
       sorted_name_url_price << new_array
       count += 1
     end
+    sorted_name_url_price.uniq!
     sorted_name_url_price
-
   end
 
     def self.scrape_collars
@@ -116,8 +116,8 @@ class DogCatalog::SupplyScraper
         sorted_name_url_price << new_array
         count += 1
       end
+      sorted_name_url_price.uniq!
       sorted_name_url_price
-
     end
 
 
@@ -176,6 +176,7 @@ class DogCatalog::SupplyScraper
         sorted_name_url_price << new_array
         count += 1
       end
+      sorted_name_url_price.uniq!
       sorted_name_url_price
     end
 end
