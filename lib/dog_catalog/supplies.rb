@@ -14,5 +14,8 @@ class DogCatalog::Supplies
     @@all
   end
 
+  def self.create_from_collection(name_url_price)
+    name_url_price.map { |a| DogCatalog::Supplies.new(*a) }
+  end
 
 end
