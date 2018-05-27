@@ -27,7 +27,7 @@ class DogCatalog::SupplyScraper
     end
     remove_every_other_link = name_url_price[1].each_slice(2).map(&:first) #removes every other url since scraped data comes with 2 same urls for each product
     name_url_price[1] = remove_every_other_link
-    binding.pry
+
     count = 0
     until count == name_url_price[0].length
       new_array = []
@@ -38,13 +38,14 @@ class DogCatalog::SupplyScraper
       count += 1
     end
     sorted_name_url_price
-    binding.pry
+
   end
 
     def self.scrape_collars
       flat_collar_name_url_price = [[],[],[]]
       prong_collar_name_url_price = [[],[],[]]
       name_url_price = [[],[],[]]
+      sorted_name_url_price = []
 
       collar_website = [
            "http://leerburg.com/leathercollars.htm",
@@ -96,22 +97,35 @@ class DogCatalog::SupplyScraper
       end
 
       count = 0 #lines 86-96 combines the scraped data for separate websites into one nested array to be returned by the method
-      count_2 = 0
       until count == 3
         name_url_price[count].concat flat_collar_name_url_price[count]
         count += 1
       end
-      until count_2 == 3
-        name_url_price[count_2].concat prong_collar_name_url_price[count_2]
-        count_2 += 1
+      count = 0
+      until count == 3
+        name_url_price[count].concat prong_collar_name_url_price[count]
+        count += 1
       end
-      name_url_price #method returns a nested array [[product_name],[url],[price]]
+
+      count = 0
+      until count == name_url_price[0].length
+        new_array = []
+        new_array[0] = name_url_price[0][count]
+        new_array[1] = name_url_price[1][count]
+        new_array[2] = name_url_price[2][count]
+        sorted_name_url_price << new_array
+        count += 1
+      end
+      sorted_name_url_price
+
     end
 
 
     def self.scrape_muzzles
       jafco_muzzles_name_url_price = [[],[],[]]
       name_url_price = [[],[],[]]
+      sorted_name_url_price = []
+
       muzzle_websites =  [
         "http://leerburg.com/leathermuzzles.htm",
         "http://leerburg.com/syntheticmuzzles.htm"
@@ -152,6 +166,16 @@ class DogCatalog::SupplyScraper
         name_url_price[count].concat jafco_muzzles_name_url_price[count]
         count += 1
       end
-      name_url_price #method returns a nested array [[product_name],[url],[price]]
+
+      count = 0
+      until count == name_url_price[0].length
+        new_array = []
+        new_array[0] = name_url_price[0][count]
+        new_array[1] = name_url_price[1][count]
+        new_array[2] = name_url_price[2][count]
+        sorted_name_url_price << new_array
+        count += 1
+      end
+      sorted_name_url_price
     end
 end
