@@ -18,4 +18,10 @@ class DogCatalog::Supplies
     name_url_price.map { |a| DogCatalog::Supplies.new(*a) }
   end
 
+  def self.display_name_and_price
+    @@all.each do |supply|
+      puts "#{supply.name}: #{supply.price}"
+    end
+  end
+
 end
