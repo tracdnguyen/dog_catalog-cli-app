@@ -24,4 +24,19 @@ class DogCatalog::Supplies
     end
   end
 
+  def self.display_url
+    @@all.each do |supply|
+      puts supply.url
+    end
+  end
+
+  def self.find_by_name
+    input = gets.chomp
+    @@all.each do |supply|
+      if input.downcase == supply.name.downcase
+        puts supply.url
+      end
+    end
+    input
+  end
 end
