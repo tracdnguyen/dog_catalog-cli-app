@@ -16,7 +16,8 @@ class DogCatalog::SupplyScraper
     leash_websites.each do |link|
       all_leashes = Nokogiri::HTML(open(link))
       all_leashes.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
-    #   supply.attributes["href"].value retreives links, but contain duplicates
+        #supply.attributes["href"].value retreives links, but contain duplicates
+        #supply.text retreives all product names listed on site, but also includes empty strings in some elements
         name_url_price[0] << supply.text
         name_url_price[0].delete("") #removes empty elements from array
         name_url_price[1] << supply.attributes["href"].value
@@ -29,7 +30,7 @@ class DogCatalog::SupplyScraper
     name_url_price[1] = remove_every_other_link
 
     count = 0
-    until count == name_url_price[0].length
+    until count == name_url_price[0].length #merges data from separate arrays into name_url_price
       new_array = []
       new_array[0] = name_url_price[0][count]
       new_array[1] = name_url_price[1][count]
@@ -37,7 +38,7 @@ class DogCatalog::SupplyScraper
       sorted_name_url_price << new_array
       count += 1
     end
-    sorted_name_url_price.each{ |array| array.uniq! }
+    sorted_name_url_price.each{ |array| array.uniq! } #converts name_url_price from being [[name],[url],[price]] to [[name,url,price]] for each product
     sorted_name_url_price
   end
 
@@ -54,6 +55,7 @@ class DogCatalog::SupplyScraper
       collar_website.each do |link|
         leather_and_fur_collars = Nokogiri::HTML(open(link))
         leather_and_fur_collars.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
+          #supply.text retreives all product names listed on site, but also includes empty strings in some elements
           name_url_price[0] << supply.text #comes in as an array with product names as elements but also empty str elements
           name_url_price[0].delete("") #removes empty elements from array
           name_url_price[1] << supply.attributes["href"].value
@@ -67,7 +69,8 @@ class DogCatalog::SupplyScraper
 
       flat_collars = Nokogiri::HTML(open("http://leerburg.com/flatcollars.htm"))
       flat_collars.css("div#container div#category-container div#category-list-container table tr td div table tr td a.itemname").each do |supply|
-    #   supply.attributes["href"].value retreives links, but contain duplicates
+        #supply.text retreives all product names listed on site, but also includes empty strings in some elements
+        #supply.attributes["href"].value retreives links, but contain duplicates
         flat_collar_name_url_price[0] << supply.text
         flat_collar_name_url_price[0].delete("") #removes empty elements from array
         flat_collar_name_url_price[1] << supply.attributes["href"].value
@@ -82,7 +85,8 @@ class DogCatalog::SupplyScraper
 
       prong_collars = Nokogiri::HTML(open("http://leerburg.com/prongcollars.htm"))
       prong_collars.css("div#container div#category-container div#category-list-container table tr td div table tr td a.itemname").each do |supply|
-      # supply.attributes["href"].value retreives links, but contain duplicates
+        #supply.text retreives all product names listed on site, but also includes empty strings in some elements
+        #supply.attributes["href"].value retreives links, but contain duplicates
         prong_collar_name_url_price[0] << supply.text
         prong_collar_name_url_price[0].delete("") #removes empty elements from array
         prong_collar_name_url_price[0].uniq! #removes duplicate names, website contains duplicates
@@ -96,7 +100,7 @@ class DogCatalog::SupplyScraper
         prong_collar_name_url_price[2].uniq! #code will break if website has same price or price range for 2 separate products
       end
 
-      count = 0 #lines 86-96 combines the scraped data for separate websites into one nested array to be returned by the method
+      count = 0 #merges data from separate arrays into name_url_price
       until count == 3
         name_url_price[count].concat flat_collar_name_url_price[count]
         count += 1
@@ -108,7 +112,7 @@ class DogCatalog::SupplyScraper
       end
 
       count = 0
-      until count == name_url_price[0].length
+      until count == name_url_price[0].length #converts name_url_price from being [[name],[url],[price]] to [[name,url,price]] for each product
         new_array = []
         new_array[0] = name_url_price[0][count]
         new_array[1] = name_url_price[1][count]
@@ -134,7 +138,8 @@ class DogCatalog::SupplyScraper
       muzzle_websites.each do |link|
         leather_and_synth_muzzles = Nokogiri::HTML(open(link))
         leather_and_synth_muzzles.css("div#container div#category-container div#category-list-container table tr td div table tr td a").each do |supply|
-      #   supply.attributes["href"].value retreives links, but contain duplicates
+          #supply.text retreives all product names listed on site, but also includes empty strings in some elements
+          #supply.attributes["href"].value retreives links, but contain duplicates
           name_url_price[0] << supply.text
           name_url_price[0].delete("") #removes empty elements from array
           name_url_price[1] << supply.attributes["href"].value
@@ -149,7 +154,8 @@ class DogCatalog::SupplyScraper
 
       jafco_muzzles = Nokogiri::HTML(open("http://leerburg.com/plasticmuzzles.htm"))
       jafco_muzzles.css("div#container div#category-container div#category-list-container table tr td div table tr td a.itemname").each do |supply|
-      # supply.attributes["href"].value retreives links, but contain duplicates
+        #supply.text retreives all product names listed on site, but also includes empty strings in some elements
+        #supply.attributes["href"].value retreives links, but contain duplicates
         jafco_muzzles_name_url_price[0] << supply.text
         jafco_muzzles_name_url_price[0].delete("") #removes empty elements from array
         jafco_muzzles_name_url_price[0].uniq! #removes duplicate names, website contains duplicates
@@ -163,12 +169,12 @@ class DogCatalog::SupplyScraper
 
       count = 0
       until count == 3
-        name_url_price[count].concat jafco_muzzles_name_url_price[count]
+        name_url_price[count].concat jafco_muzzles_name_url_price[count] #merges data from separate arrays into name_url_price
         count += 1
       end
 
       count = 0
-      until count == name_url_price[0].length
+      until count == name_url_price[0].length #converts name_url_price from being [[name],[url],[price]] to [[name,url,price]] for each product
         new_array = []
         new_array[0] = name_url_price[0][count]
         new_array[1] = name_url_price[1][count]
