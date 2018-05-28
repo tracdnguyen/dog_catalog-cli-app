@@ -37,7 +37,7 @@ class DogCatalog::SupplyScraper
       sorted_name_url_price << new_array
       count += 1
     end
-    sorted_name_url_price.uniq!
+    sorted_name_url_price.each{ |array| array.uniq! }
     sorted_name_url_price
   end
 
@@ -116,7 +116,7 @@ class DogCatalog::SupplyScraper
         sorted_name_url_price << new_array
         count += 1
       end
-      sorted_name_url_price.uniq!
+      sorted_name_url_price.each{ |array| array.uniq! }
       sorted_name_url_price
     end
 
@@ -176,7 +176,7 @@ class DogCatalog::SupplyScraper
         sorted_name_url_price << new_array
         count += 1
       end
-      sorted_name_url_price.uniq!
+      sorted_name_url_price.each{ |array| array.uniq! }
       sorted_name_url_price
     end
 end
