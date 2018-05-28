@@ -19,7 +19,6 @@ class DogCatalog::Supplies
   end
 
   def self.display_name_and_price(supplies)
-    puts "Here is a list of all leashes with their price:"
     supplies.each_with_index do |supply, index|
       puts "#{index + 1}. #{supply.name}: #{supply.price}"
     end
@@ -31,16 +30,16 @@ class DogCatalog::Supplies
     end
   end
 
-  def self.find_by_number
-    puts "Please enter the number of the product you would like to view the URL for, or type list to view categories again:"
+  def self.find_by_number(supplies)
+    puts "Please enter the number of the product you would like to view the URL for, or type 'list' to view categories again:"
     input = gets.chomp
     if input != "list"
-      @@all.each_with_index do |supply, index|
+      supplies.each_with_index do |supply, index|
         if input.to_i - 1 == index
           puts "#{supply.name}: #{supply.url}"
         end
       end
-      find_by_number
+      find_by_number(supplies)
     end
   end
 

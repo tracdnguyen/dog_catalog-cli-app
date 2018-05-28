@@ -3,7 +3,6 @@ class DogCatalog::CLI
   def call
     list_categories
     menu
-    goodbye
   end
 
   def list_categories
@@ -18,23 +17,35 @@ class DogCatalog::CLI
   def menu
     input = nil
     while input != "exit"
-      puts "Enter the number for the category you'd like to view or type list to view the categories again:"
+      puts "Enter the number for the category you'd like to view or type 'list' to view the categories again:"
       input = gets.strip.downcase
       case input
       when "1"
         scraper = DogCatalog::SupplyScraper.scrape_leashes
-        test = DogCatalog::Supplies.create_from_collection(scraper)
-        DogCatalog::Supplies.display_name_and_price(test)
-        DogCatalog::Supplies.find_by_number
-        test.clear
+        supplies = DogCatalog::Supplies.create_from_collection(scraper)
+        puts "Here is a list of all leashes with their price:"
+        DogCatalog::Supplies.display_name_and_price(supplies)
+        DogCatalog::Supplies.find_by_number(supplies)
+        supplies.clear
         list_categories
-
       when "2"
-
+        scraper = DogCatalog::SupplyScraper.scrape_collars
+        supplies = DogCatalog::Supplies.create_from_collection(scraper)
+        DogCatalog::Supplies.display_name_and_price(supplies)
+        DogCatalog::Supplies.find_by_number(supplies)
+        supplies.clear
+        list_categories
       when "3"
-
+        scraper = DogCatalog::SupplyScraper.scrape_muzzles
+        supplies = DogCatalog::Supplies.create_from_collection(scraper)
+        DogCatalog::Supplies.display_name_and_price(supplies)
+        DogCatalog::Supplies.find_by_number(supplies)
+        supplies.clear
+        list_categories
       when "list"
         list_categories
+      when "exit"
+        goodbye
       else
         puts "We aren't sure of what you want, type list or exit."
       end
