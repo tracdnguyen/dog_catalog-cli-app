@@ -20,7 +20,7 @@ class DogCatalog::Supplies
 
   def self.display_name_and_price(supplies)
     puts "Here is a list of all leashes with their price:"
-    test.each_with_index do |supply, index|
+    supplies.each_with_index do |supply, index|
       puts "#{index + 1}. #{supply.name}: #{supply.price}"
     end
   end
