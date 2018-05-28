@@ -22,15 +22,14 @@ class DogCatalog::CLI
       input = gets.strip.downcase
       case input
       when "1"
-        puts "Here is a list of all leashes with their price."
         scraper = DogCatalog::SupplyScraper.scrape_leashes
         DogCatalog::Supplies.create_from_collection(scraper)
         DogCatalog::Supplies.display_name_and_price
 
       when "2"
-        puts "Here is a list of all collars with their price."
+
       when "3"
-        puts "Here is a list of all muzzles with their price."
+
       when "list"
         list_categories
       else
