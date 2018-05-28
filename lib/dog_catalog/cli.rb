@@ -1,12 +1,12 @@
 class DogCatalog::CLI
 
   def call
+    puts "Welcome to the catalog!"
     list_categories
     menu
   end
 
   def list_categories
-    puts "Welcome to the catalog!"
     puts <<-DOC.gsub /^\s*/, ''
     1. Leashes
     2. Collars
