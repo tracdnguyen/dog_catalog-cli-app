@@ -38,7 +38,7 @@ class DogCatalog::SupplyScraper
       sorted_name_url_price << new_array
       count += 1
     end
-    sorted_name_url_price.each{ |array| array.uniq! } #converts name_url_price from being [[name],[url],[price]] to [[name,url,price]] for each product
+    sorted_name_url_price.uniq! #removes duplicate products from array
     sorted_name_url_price
   end
 
@@ -120,7 +120,7 @@ class DogCatalog::SupplyScraper
         sorted_name_url_price << new_array
         count += 1
       end
-      sorted_name_url_price.each{ |array| array.uniq! }
+      sorted_name_url_price.uniq! #removes duplicate products from array
       sorted_name_url_price
     end
 
@@ -182,7 +182,7 @@ class DogCatalog::SupplyScraper
         sorted_name_url_price << new_array
         count += 1
       end
-      sorted_name_url_price.each{ |array| array.uniq! }
+      sorted_name_url_price.uniq! #removes duplicate products from array
       sorted_name_url_price
     end
 end
