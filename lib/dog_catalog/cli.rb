@@ -25,7 +25,8 @@ class DogCatalog::CLI
         scraper = DogCatalog::SupplyScraper.scrape_leashes
         DogCatalog::Supplies.create_from_collection(scraper)
         DogCatalog::Supplies.display_name_and_price
-
+        DogCatalog::Supplies.find_by_number
+        list_categories
       when "2"
 
       when "3"

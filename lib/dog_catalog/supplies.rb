@@ -31,13 +31,20 @@ class DogCatalog::Supplies
     end
   end
 
-  def self.find_by_name
+  def self.find_by_number
+    puts "Please enter the number of the product you would like to view the URL for, or type list to view categories again:"
     input = gets.chomp
-    @@all.each do |supply|
-      if input.downcase == supply.name.downcase
-        puts supply.url
-      end
-    end
-    input
+    if input != "list"
+     @@all.each_with_index do |supply, index|
+       if input.to_i - 1 == index
+         puts "#{supply.name}: #{supply.url}"
+       end
+     end
+     find_by_number
+   end
+ end
+
+  def self.clear
+    @@all.clear
   end
 end
