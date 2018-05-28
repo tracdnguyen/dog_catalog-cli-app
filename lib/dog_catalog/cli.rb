@@ -26,21 +26,18 @@ class DogCatalog::CLI
         puts "Here is a list of all leashes with their price:"
         DogCatalog::Supplies.display_name_and_price(supplies)
         DogCatalog::Supplies.find_by_number(supplies)
-        supplies.clear
         list_categories
       when "2"
         scraper = DogCatalog::SupplyScraper.scrape_collars
         supplies = DogCatalog::Supplies.create_from_collection(scraper)
         DogCatalog::Supplies.display_name_and_price(supplies)
         DogCatalog::Supplies.find_by_number(supplies)
-        supplies.clear
         list_categories
       when "3"
         scraper = DogCatalog::SupplyScraper.scrape_muzzles
         supplies = DogCatalog::Supplies.create_from_collection(scraper)
         DogCatalog::Supplies.display_name_and_price(supplies)
         DogCatalog::Supplies.find_by_number(supplies)
-        supplies.clear
         list_categories
       when "list"
         list_categories
