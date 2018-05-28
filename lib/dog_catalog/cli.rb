@@ -23,8 +23,10 @@ class DogCatalog::CLI
       case input
       when "1"
         puts "Here is a list of all leashes with their price."
-        test = DogCatalog::SupplyScraper.scrape_muzzles
-        test
+        scraper = DogCatalog::SupplyScraper.scrape_leashes
+        DogCatalog::Supplies.create_from_collection(scraper)
+        DogCatalog::Supplies.display_name_and_price
+
       when "2"
         puts "Here is a list of all collars with their price."
       when "3"

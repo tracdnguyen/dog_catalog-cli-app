@@ -19,8 +19,8 @@ class DogCatalog::Supplies
   end
 
   def self.display_name_and_price
-    @@all.each do |supply|
-      puts "#{supply.name}: #{supply.price}"
+    @@all.each_with_index do |supply, index|
+      puts "#{index + 1}. #{supply.name}: #{supply.price}"
     end
   end
 
