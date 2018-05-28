@@ -23,10 +23,12 @@ class DogCatalog::CLI
       case input
       when "1"
         scraper = DogCatalog::SupplyScraper.scrape_leashes
-        DogCatalog::Supplies.create_from_collection(scraper)
-        DogCatalog::Supplies.display_name_and_price
+        test = DogCatalog::Supplies.create_from_collection(scraper)
+        DogCatalog::Supplies.display_name_and_price(test)
         DogCatalog::Supplies.find_by_number
+        test.clear
         list_categories
+
       when "2"
 
       when "3"
