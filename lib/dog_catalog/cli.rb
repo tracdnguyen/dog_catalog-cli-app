@@ -30,12 +30,14 @@ class DogCatalog::CLI
       when "2"
         scraper = DogCatalog::SupplyScraper.scrape_collars
         supplies = DogCatalog::Supplies.create_from_collection(scraper)
+        puts "Here is a list of all collars with their price:"
         DogCatalog::Supplies.display_name_and_price(supplies)
         DogCatalog::Supplies.find_by_number(supplies)
         list_categories
       when "3"
         scraper = DogCatalog::SupplyScraper.scrape_muzzles
         supplies = DogCatalog::Supplies.create_from_collection(scraper)
+        puts "Here is a list of all muzzles with their price:"
         DogCatalog::Supplies.display_name_and_price(supplies)
         DogCatalog::Supplies.find_by_number(supplies)
         list_categories
