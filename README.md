@@ -1,8 +1,7 @@
 # DogCatalog
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dog_catalog`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to DogCatalog. This is a command line interface that shows a list product names of various product categories listed on leerburg.com. Product URLs are available to
+view for each item.
 
 ## Installation
 
@@ -22,7 +21,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To install, visit: https://github.com/tracdnguyen/dog_catalog-cli-app and either download or clone the project files. From the terminal, cd into the project directory
+and type './bin/dog-catalog' to run the application. Follow the prompts shown on the terminal to navigate through the CLI.
 
 ## Development
 
